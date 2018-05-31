@@ -1,7 +1,7 @@
 # fiware-users
 [![License badge](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Script to get the number of Trial and Community users in a FIWARE Lab node.
+Script to find interesting info about users, servers, images, networks... in FIWARE Lab.
 
 
 ## Build and Install
