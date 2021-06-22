@@ -20,14 +20,16 @@
 
 __author__ = "José Ignacio Carretero Guarde"
 
-    
+
 import requests
 import json
 import re
 import sys
 import time
 from functions import *
-from ConfigParser import ConfigParser
+# from ConfigParser import ConfigParser
+import configparser 
+import os
 
 
 class Config:
@@ -41,7 +43,8 @@ class Config:
             "project_id": os.environ.get('OS_PROJECT_ID'), 
             "project_domain_id": os.environ.get('OS_PROJECT_DOMAIN_ID')} 
         else:
-            parser = ConfigParser()
+            # parser = ConfigParser()
+            parser = configparser.ConfigParser()
             parser.read(config_file)
             d = {"auth_url": parser.get('keystone', 'url'),
             "username": parser.get('keystone', 'username'),
@@ -49,6 +52,7 @@ class Config:
             "project_name": parser.get('keystone', 'projectname'),
             "user_domain_id": 'default',
             "project_domain_id": 'default'} 
+
             if parser.has_section('neutron'):
                 d['neutron_url'] = parser.get('neutron', 'url')
             if parser.has_section('nova'):
@@ -84,9 +88,13 @@ class OpenstackQueries:
         headers = {'content-type': 'application/json'}
         url = self.url + "/v2.0/tokens"
         r = requests.post(url=url, headers=headers, data=json.dumps(payload))
-
+        
+        # try:
         self.token = r.json()['access']['token']['id']
         self.project = r.json()['access']['token']['tenant']['id']
+        # except:
+        #    self.token='aae0437c65b14ad680e7105ce27203aa'
+        #    self.project='00000000000003228460960090160000'
     
     
     def remove_elements_from_list_of_dicts(self, d, elements):

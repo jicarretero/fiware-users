@@ -20,3 +20,6 @@ def get_filtered_data(data, data_key, contained_field):
 
 def ts_milis():
     return int(time.mktime(datetime.datetime.now().timetuple()) * 1000)
+
+def str_to_date(str_date):
+    pass
